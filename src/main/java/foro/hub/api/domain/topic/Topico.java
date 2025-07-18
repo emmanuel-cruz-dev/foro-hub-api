@@ -1,0 +1,32 @@
+package foro.hub.api.domain.topic;
+
+import foro.hub.api.domain.curso.Curso;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Table(name = "topicos")
+@Entity(name = "Topico")
+public class Topico {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String titulo;
+    private String mensaje;
+
+    @Embedded
+    private Curso nombreCurso;
+
+    private Long idAutor;
+    private LocalDateTime fechaCreacion;
+    private boolean status;
+}
