@@ -29,4 +29,13 @@ public class Topico {
     private Long idAutor;
     private LocalDateTime fechaCreacion;
     private boolean status;
+
+    public Topico(DatosRegistroTopico datos) {
+        this.titulo = datos.titulo();
+        this.mensaje = datos.mensaje();
+        this.nombreCurso = new Curso(datos.nombreCurso(), datos.categoria());
+        this.idAutor = Long.valueOf(datos.idAutor());
+        this.fechaCreacion = LocalDateTime.now();
+        this.status = true;
+    }
 }
