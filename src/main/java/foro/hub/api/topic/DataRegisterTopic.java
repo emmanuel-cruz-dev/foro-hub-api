@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record DataRegisterTopic(
-        @NotNull @JsonProperty("idUsuario") Long idUser,
+        @NotNull @JsonProperty("idAutor") Long idAuthor,
         @NotBlank @JsonProperty("mensaje") String message,
         @NotBlank @JsonProperty("nombreCurso") String nameCourse,
         @NotBlank @JsonProperty("titulo") String title
