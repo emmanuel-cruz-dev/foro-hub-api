@@ -16,13 +16,20 @@ public class TopicoController {
     @Autowired
     private TopicoRepository repository;
 
+    @PostMapping
+    public String registrar(@RequestBody DatosRegistroTopico datos) {
+        repository.save(new Topico(datos));
+        return "Tópico registrado correctamente.";
+    }
+
     @GetMapping
     public ResponseEntity<List<Topico>> listar() {
         return ResponseEntity.ok(repository.findAll());
     }
 
-    @PostMapping
-    public void registrar(@RequestBody DatosRegistroTopico datos) {
-        repository.save(new Topico(datos));
+    @DeleteMapping("/{id}")
+    public String eliminar(@PathVariable Long id) {
+        repository.deleteById(id);
+        return "Tópico eliminado correctamente.";
     }
 }
