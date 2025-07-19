@@ -6,6 +6,7 @@ import foro.hub.api.domain.topico.Topico;
 import foro.hub.api.domain.topico.TopicoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,8 @@ public class TopicoController {
         try{
             repository.save(new Topico(datos));
             return ResponseEntity.status(201).body("Tópico registrado correctamente.");
+        } catch (DataIntegrityViolationException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: No se pudo registrar el tópico ");
         }
