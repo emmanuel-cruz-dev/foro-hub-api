@@ -4,6 +4,7 @@ import foro.hub.api.domain.topico.DatosActualizarTopico;
 import foro.hub.api.domain.topico.DatosRegistroTopico;
 import foro.hub.api.domain.topico.Topico;
 import foro.hub.api.domain.topico.TopicoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class TopicoController {
     private TopicoRepository repository;
 
     @PostMapping
-    public ResponseEntity<String> registrar(@RequestBody DatosRegistroTopico datos) {
+    public ResponseEntity<String> registrar(@Valid @RequestBody DatosRegistroTopico datos) {
         try{
             repository.save(new Topico(datos));
             return ResponseEntity.status(201).body("Tópico registrado correctamente.");
