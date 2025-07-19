@@ -40,17 +40,17 @@ public class TopicoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Topico> traerTopicoPorId(@PathVariable Long id) {
+    public ResponseEntity<?> traerTopicoPorId(@PathVariable Long id) {
         try {
             Topico topico = repository.findById(id).orElse(null);
 
             if (topico == null) {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(404).body("Error: Tópico no encontrado");
             }
 
             return ResponseEntity.ok(topico);
         } catch (Exception e) {
-            return ResponseEntity.status(500).build();
+            return ResponseEntity.status(500).body("Error: No se pudo obtener el tópico");
         }
     }
 
