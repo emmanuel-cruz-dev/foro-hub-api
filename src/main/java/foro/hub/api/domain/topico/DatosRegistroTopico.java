@@ -5,8 +5,11 @@ import jakarta.validation.constraints.NotNull;
 
 public record DatosRegistroTopico(
         @NotNull String idAutor,
-        @NotBlank String mensaje,
-        @NotBlank String nombreCurso,
-        @NotBlank String titulo
+        @NotBlank(message = "El mensaje es obligatorio")
+        String mensaje,
+        @NotBlank(message = "El nombre del curso es obligatorio")
+        String nombreCurso,
+        @NotBlank(message = "El título es obligatorio")
+        String titulo
 ) {
 }
