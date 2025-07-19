@@ -1,10 +1,12 @@
 package foro.hub.api.controller;
 
+import foro.hub.api.domain.topico.DatosActualizarTopico;
 import foro.hub.api.domain.topico.DatosRegistroTopico;
 import foro.hub.api.domain.topico.Topico;
 import foro.hub.api.domain.topico.TopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +34,17 @@ public class TopicoController {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<String> actualizar(@PathVariable Long id, @RequestBody DatosActualizarTopico datos) {
+        Topico topico = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Tópico no encontrado con ID: " + id));
+                
+        topico.actualizarDatos(datos);
+        
+        return ResponseEntity.ok("Tópico actualizado correctamente");
     }
 
     @DeleteMapping("/{id}")
