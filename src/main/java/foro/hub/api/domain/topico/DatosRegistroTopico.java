@@ -7,7 +7,6 @@ public record DatosRegistroTopico(
         @NotNull String idAutor,
         @NotBlank String mensaje,
         @NotBlank String nombreCurso,
-        @NotBlank String titulo,
-        @NotBlank String categoria
+        @NotBlank String titulo
 ) {
 }
