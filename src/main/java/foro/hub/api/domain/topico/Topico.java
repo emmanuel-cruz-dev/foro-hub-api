@@ -1,4 +1,4 @@
-package foro.hub.api.domain.topic;
+package foro.hub.api.domain.topico;
 
 import foro.hub.api.domain.curso.Curso;
 import jakarta.persistence.*;
