@@ -27,6 +27,13 @@ public class TopicoController {
         return ResponseEntity.ok(repository.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Topico> traerTopicoPorId(@PathVariable Long id) {
+        return repository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public String eliminar(@PathVariable Long id) {
         repository.deleteById(id);
