@@ -19,37 +19,70 @@ public class TopicoController {
     private TopicoRepository repository;
 
     @PostMapping
-    public String registrar(@RequestBody DatosRegistroTopico datos) {
-        repository.save(new Topico(datos));
-        return "Tópico registrado correctamente.";
+    public ResponseEntity<String> registrar(@RequestBody DatosRegistroTopico datos) {
+        try{
+            repository.save(new Topico(datos));
+            return ResponseEntity.status(201).body("Tópico registrado correctamente.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: No se pudo registrar el tópico ");
+        }
+
     }
 
     @GetMapping
     public ResponseEntity<List<Topico>> listar() {
-        return ResponseEntity.ok(repository.findAll());
+        try{
+            List<Topico> topicos = repository.findAll();
+            return ResponseEntity.ok(topicos);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Topico> traerTopicoPorId(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            Topico topico = repository.findById(id).orElse(null);
+
+            if (topico == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            return ResponseEntity.ok(topico);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<String> actualizar(@PathVariable Long id, @RequestBody DatosActualizarTopico datos) {
-        Topico topico = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Tópico no encontrado con ID: " + id));
-                
-        topico.actualizarDatos(datos);
-        
-        return ResponseEntity.ok("Tópico actualizado correctamente");
+        try {
+            Topico topico = repository.findById(id).orElse(null);
+
+            if (topico == null) {
+                return ResponseEntity.status(404).body("Error: Tópico no encontrado");
+            }
+            topico.actualizarDatos(datos);
+            repository.save(topico);
+
+            return ResponseEntity.ok("Tópico actualizado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: No se pudo actualizar el tópico");
+        }
     }
 
     @DeleteMapping("/{id}")
-    public String eliminar(@PathVariable Long id) {
-        repository.deleteById(id);
-        return "Tópico eliminado correctamente.";
+    public ResponseEntity<String> eliminar(@PathVariable Long id) {
+        try {
+            if (!repository.existsById(id)) {
+                return ResponseEntity.status(404).body("Error: Tópico no encontrado");
+            }
+            repository.deleteById(id);
+
+            return ResponseEntity.ok("Tópico eliminado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: No se pudo eliminar el tópico");
+        }
     }
 }
