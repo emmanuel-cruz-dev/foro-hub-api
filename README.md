@@ -49,13 +49,56 @@ El proyecto se adhiere a una arquitectura en capas clara, promoviendo la modular
 
 El proyecto sigue una arquitectura en capas limpia y modular, facilitando la separación de responsabilidades y la mantenibilidad:
 
-* **`controller`**: Maneja las solicitudes HTTP entrantes, mapea las rutas y delega la lógica de negocio a los servicios.
-* **`domain`**: Contiene la lógica de negocio central, incluyendo:
-    * **`topico`**: Entidad `Topico`, `ITopicoRepository`, `TopicoService` y DTOs (`TopicoCreacionDTO`, `TopicoDetalleDTO`, `TopicoActualizacionDTO`).
-    * **`usuario`**: Entidad `Usuario`, `IUsuarioRepository`, `UsuarioService` y DTOs (`UsuarioRegistroDTO`, `UsuarioDetalleDTO`, `UsuarioActualizacionDetalle`, `UsuarioDetalleParaTopicoDTO`).
-* **`infra`**: Contiene componentes de infraestructura y configuración transversal:
-    * **`security`**: Clases relacionadas con Spring Security, JWT (`SecurityConfiguration`, `SecurityFilter`, `TokenService`, `AutenticacionService`).
-    * **`exception`**: Clases de excepciones personalizadas y el `ManejadorDeErrores` global.
+```
+api/
+├── .idea/
+├── .mvn/
+├── src/
+│   └── main/
+│       └── java/
+│           └── foro.hub.api/
+│               ├── controller/
+│               │   ├── AutenticacionController
+│               │   ├── HelloController
+│               │   └── TopicoController
+│               ├── domain/
+│               │   ├── topico/
+│               │   │   ├── DatosActualizarTopico
+│               │   │   ├── DatosRegistroTopico
+│               │   │   ├── Topico
+│               │   │   └── TopicoRepository
+│               │   └── usuario/
+│               │       ├── AutenticacionService
+│               │       ├── DatosAutenticacion
+│               │       ├── Usuario
+│               │       └── UsuarioRepository
+│               ├── infra/
+│               │   ├── exceptions/
+│               │   │   └── GestorDeErrores
+│               │   └── security/
+│               │       ├── DatosTokenJWT
+│               │       ├── SecurityConfiguration
+│               │       ├── SecurityFilter
+│               │       └── TokenService
+│               └── ApiApplication
+├── resources/
+│   ├── db.migration/
+│   │   └── V1__create-table-usuarios.sql
+│   ├── static/
+│   ├── templates/
+│   └── application.properties
+└── test/
+    └── target/
+        ├── .gitattributes
+        ├── .gitignore
+        ├── HELP.md
+        ├── mvnw
+        ├── mvnw.cmd
+        ├── pom.xml
+        └── README.md
+├── External Libraries/
+└── Scratches and Consoles/
+```
 
 ---
 
