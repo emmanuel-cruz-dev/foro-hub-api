@@ -132,6 +132,4 @@ Una vez que la aplicación esté ejecutándose, puedes interactuar con ella:
 * **`DELETE /topicos/{id}`**
     * **Descripción:** Elimina un tópico por su ID. (Requiere JWT)
     * **Headers:** `Authorization: Bearer <JWT_TOKEN>`
-    * **Respuesta (204 No Content):** Si la eliminación fue exitosa.
-
----
+    * **Respuesta (200 OK):** Si la eliminación fue exitosa.
