@@ -133,3 +133,9 @@ Una vez que la aplicación esté ejecutándose, puedes interactuar con ella:
     * **Descripción:** Elimina un tópico por su ID. (Requiere JWT)
     * **Headers:** `Authorization: Bearer <JWT_TOKEN>`
     * **Respuesta (200 OK):** Si la eliminación fue exitosa.
+ 
+---
+
+## 📜 **Licencia**
+
+Proyecto educativo para **Alura Latam 2025**
